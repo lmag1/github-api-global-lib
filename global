@@ -1,0 +1,24 @@
+@Library('github-api-global-lib') _ // Shared Library-ის იმპორტი
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Use Shared Library') {
+            steps {
+                script {
+                    // Shared Library-დან ფუნქციის გამოძახება
+                    def githubApi = new org.alex.GithubApi()
+                    def repoInfo = githubApi.getRepoInfo("darinpope", "github-api-global-lib")
+                    echo "Repository Info: ${repoInfo}"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "პაიპლაინი წარმატებით დასრულდა."
+        }
+    }
+}
