@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     def github = new org.foo.GitHubApi()
-                    github.getRepoInfo('your-repository')
+                    github.getRepoInfo('https://github.com/lmag1/github-api-global-lib.git')
                 }
             }
         }
