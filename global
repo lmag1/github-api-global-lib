@@ -1,24 +1,22 @@
-@Library('github-api-global-lib') _ // Shared Library-ის იმპორტი
+@Library('github-api-lib') _
 
 pipeline {
     agent any
 
     stages {
-        stage('Use Shared Library') {
+        stage('Checkout') {
             steps {
-                script {
-                    // Shared Library-დან ფუნქციის გამოძახება
-                    def githubApi = new org.alex.GithubApi()
-                    def repoInfo = githubApi.getRepoInfo("darinpope", "github-api-global-lib")
-                    echo "Repository Info: ${repoInfo}"
-                }
+                git url: 'https://github.com/lmag1/github-api-global-lib.git', branch: 'main'
             }
         }
-    }
 
-    post {
-        always {
-            echo "პაიპლაინი წარმატებით დასრულდა."
+        stage('Run Shared Library Function') {
+            steps {
+                script {
+                    def github = new org.foo.GitHubApi()
+                    github.getRepoInfo('your-repository')
+                }
+            }
         }
     }
 }
